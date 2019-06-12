@@ -1,0 +1,38 @@
+---
+title: "Biomarker 113 Analytic Report"
+author: 
+- Timothy Tsai, MPH
+date: "`r Sys.Date()`"
+mainfont: TeX Gyre Pagella
+output: 
+  memor::pdf_memo:
+    use_profile: false
+    logo: "tree-template-logo.pdf"
+    logo_height: 2in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Biomarker A113 is a γ-β secretase inhibitor which is thought to downregulate the examplin-C enzyme, a necessary component for cell formation in the ossmodula.  Decreased cell formation in the ossmodula is associated with increased rates of fracture and decreased mobility in several large, population-based studies.  Biomarker A113 is a potential candidate for intervention however, there have been relatively few studies of A113 in humans.
+
+In this study, we collected morning fasting blood samples from ______ participants aged ____ to ____.  We conducted A113 assays by multispectral peripheral absorptiometry using a 12 array micropanel (AssayGen, Salem, MA).
+
+## Statistical Analysis
+
+```{r cars}
+summary(cars)
+```
+
+# Results
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
