@@ -1,5 +1,7 @@
 ---
-title: "Biomarker 113 Analytic Report"
+title: |
+  | Biomarker 113 Analytic Report
+  | for R/Medicine 2019
 author: 
 - Timothy Tsai, MPH
 date: "`r Sys.Date()`"
@@ -9,30 +11,68 @@ output:
     use_profile: false
     logo: "tree-template-logo.pdf"
     logo_height: 2in
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(knitr.table.format = "latex")
+opts_knit$set(root.dir = '../..')
+```
+
+```{r import, echo=F}
+source("data/clinical_data.R")
+source("report/Biomarker A113 Analysis/01_create_datasets.R")
+source("report/Biomarker A113 Analysis/tables.R")
+source("report/Biomarker A113 Analysis/figures.R")
+source("report/Biomarker A113 Analysis/models.R")
+```
+
+```{r, echo = FALSE}
+n_pts <- clinic_lab_data_analytic %>% tally() %>% pull()
+age_range <- range(clinic_lab_data_analytic$age)
 ```
 
 # Introduction
 
 Biomarker A113 is a γ-β secretase inhibitor which is thought to downregulate the examplin-C enzyme, a necessary component for cell formation in the ossmodula.  Decreased cell formation in the ossmodula is associated with increased rates of fracture and decreased mobility in several large, population-based studies.  Biomarker A113 is a potential candidate for intervention however, there have been relatively few studies of A113 in humans.
 
-In this study, we collected morning fasting blood samples from ______ participants aged ____ to ____.  We conducted A113 assays by multispectral peripheral absorptiometry using a 12 array micropanel (AssayGen, Salem, MA).
-
-## Statistical Analysis
-
-```{r cars}
-summary(cars)
-```
+In this study, we collected morning fasting blood samples from `r n_pts` participants aged `r age_range[1]` to `r age_range[2]` y.  We conducted A113 assays by multispectral peripheral absorptiometry using a 12 array micropanel (AssayGen, Salem, MA).
 
 # Results
 
-You can also embed plots, for example:
+## Descriptive Statistics
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, echo = FALSE}
+kable(clinic_lab_data_summary_table, booktabs = TRUE, col.names = c("", "Female", "Male"), 
+      align = c("l", "c", "c"),
+      caption = "Descriptive Statistics") %>% 
+  kable_styling(latex_options = "hold_position")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Exploratory Analyses
+
+```{r, echo = FALSE}
+histograms
+```
+
+```{r, echo = FALSE}
+x_age_plot
+```
+
+```{r, echo = FALSE}
+a_age_plot
+```
+
+## Statistical Analysis
+modeling  
+regression output
+
+```{r, echo=FALSE}
+kable(models_out, booktabs = TRUE) %>% 
+  pack_rows("Unadjusted", 1, 2) %>% 
+  pack_rows("Sex Adjusted", 3, 5) %>% 
+  pack_rows("Fully Adjusted", 6, 10)
+```
