@@ -1,0 +1,256 @@
+---
+title: "Analytic Memos with Rmarkdown"
+subtitle: "R/Medicine 2019"
+author: "Timothy Tsai, MPH"
+institute: "Hinda and Arthur Marcus Institute for Aging Research"
+date: "2019/09/14"
+mainfont: TeX Gyre Pagella
+output:
+  xaringan::moon_reader:
+    css: ["default", "css/custom.css", "css/footer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: [center, middle]
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(htmltools.dir.version = FALSE)
+options(knitr.table.format = "html") 
+opts_knit$set(root.dir = '../..')
+```
+
+```{r import, echo=FALSE}
+source("data/clinical_data.R")
+source("report/Biomarker A113 Analysis/01_create_datasets.R")
+source("report/Biomarker A113 Analysis/tables.R")
+source("report/Biomarker A113 Analysis/figures.R")
+```
+
+```{r set-text-objs, echo = FALSE}
+n_pts <- clinic_lab_data_analytic %>%
+  tally() %>%
+  pull()
+
+age_range <- round(range(clinic_lab_data_analytic$age), 0)
+```
+
+
+layout: true
+  
+<div class="my-header"></div>
+
+<div class="my-footer"><span>https://1n.pm/rmedmemos     
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+</span></div> 
+
+---
+
+class: left, top
+
+# Disclosures
+
+No disclosures
+
+---
+class: center, middle
+
+# Introduction
+
+---
+
+```{r}
+knitr::include_graphics("./assets/memo_p1.png", dpi = 200)
+```
+
+---
+
+```{r}
+knitr::include_graphics("./assets/memo_p2.png", dpi = 200)
+```
+
+---
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map enlarged.png", dpi = 260)
+```
+
+---
+
+# About Us
+
+--
+.pull-left[
+**Biostatistics and Data Science**  
+- Statistical analysis
+
+- Software development
+
+- Data management  
+
+- Accidental sysadmin
+]
+--
+.pull-right[
+**Biomedical inquiries into aging**  
+- clinical trials  
+
+- observational studies  
+
+- physical function  
+
+- bone health  
+
+- cognition  
+
+- improving clinical care
+]
+---
+
+# A clinical research ecosystem
+--
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/research ecosystem.png", dpi = 200)
+```
+
+---
+
+#### A clinical research project
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map enlarged.png", dpi = 300)
+```
+
+---
+
+#### <br>
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map annotated enlarged 1.png", dpi = 300)
+```
+
+---
+
+#### <br>
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map annotated enlarged 2.png", dpi = 300)
+```
+
+---
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map annotated enlarged zoom.png", dpi = 250)
+```
+
+---
+
+# Markdown
+easy to read, easy to write  
+text to html
+--
+
+# R Markdown
+text and **R code** to html, **pdf, Word and others**  
+
+*knitr* - R Markdown to markdown
+- R code and objects (text, tables, figures) can be referenced and evaluated in-line  
+
+*pandoc* - markdown to a variety of output formats
+---
+
+# Advantages
+error reduction  
+evolving project code base with version control  
+extensibility  
+reusability  
+---
+
+# Creating an analytic memo with Rmarkdown
+structuring a project  
+modular code  
+the ninety-ninety rule 
+
+--
+
+## memor  
+
+--
+
+## kableExtra  
+---
+
+```{r, echo = TRUE, fig.retina=2, fig.width=11}
+a_age_plot
+```
+
+---
+
+```{r, echo = TRUE}
+kable(clinic_lab_data_summary_table,
+      col.names = c("Physical Activity", "High", "Low", "High", "Low"), 
+      align = c("l", "c", "c", "c", "c"),
+      caption = "Descriptive Statistics, mean (sd)") %>% 
+  kable_styling(bootstrap_options = "striped", font_size = 18) %>% 
+  add_header_above(c("", "Women (n = 246)" = 2, "Men (n = 204)" = 2)) %>% 
+  add_footnote(c("Tsai 2016", "Smithee 2014"))
+```
+
+---
+
+## Inline Code
+
+````
+```{r}`r ''`
+n_pts
+age_range[1]
+age_range[2]
+```
+````
+
+"In this study, we collected morning fasting blood samples from **`r n_pts`** participants aged **`r age_range[1]`** to **`r age_range[2]`** y.  We conducted A113 assays by multispectral peripheral absorptiometry using a 12 array micropanel (AssayGen, Salem, MA)."
+
+---
+
+#### Demonstration
+
+.pull-left[
+
+```{r, fig.align='center'}
+knitr::include_graphics("./assets/RMedicine Project Map annotated enlarged zoom.png", dpi = 250)
+```
+]
+
+.pull-right[
+https://1n.pm/rmedmemos  
+https://github.com/timothytsai/memos-rmedicine2019
+]
+---
+
+# Acknowledgments
+Made possible by support from the NIA via a Boston Pepper Center (P30AG031679, S Bhasin) Core Development Project Grant (T Travison).
+
+--
+
+## Co-authors
+Fan Chen, MS, MPH  
+Hao Zhu, MA  
+Thomas G. Travison, PhD  
+Ilean Isaza, PhD
+---
+
+# Thanks!
+curator - **Cu**stomizable **R**eporting, **A**nalysis and **T**emplating for Repr**o**ducible **R**esearch  
+https://hebrewseniorlife.github.io/curator/
+
+find me on Twitter - @seizethedatum
+
+.footnote[
+Slides created using the R package [**xaringan**](https://github.com/yihui/xaringan).
+]

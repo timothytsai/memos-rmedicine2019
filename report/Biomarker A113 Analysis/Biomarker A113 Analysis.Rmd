@@ -3,7 +3,7 @@ title: |
   | Biomarker 113 Analytic Report
   | for R/Medicine 2019
 author: 
-- Timothy Tsai, MPH
+  - Timothy Tsai, MPH
 date: "`r Sys.Date()`"
 mainfont: TeX Gyre Pagella
 output: 
@@ -17,7 +17,14 @@ output:
 ```{r setup, include=FALSE}
 library(knitr)
 library(kableExtra)
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.path = "figs/"
+)
+
 options(knitr.table.format = "latex")
 opts_knit$set(root.dir = '../..')
 ```
@@ -30,10 +37,27 @@ source("report/Biomarker A113 Analysis/figures.R")
 source("report/Biomarker A113 Analysis/models.R")
 ```
 
-```{r, echo = FALSE}
-n_pts <- clinic_lab_data_analytic %>% tally() %>% pull()
+```{r set-text-objs, echo = FALSE}
+n_pts <- clinic_lab_data_analytic %>%
+  tally() %>%
+  pull()
+
+n_gender <- clinic_lab_data_analytic %>%
+  group_by(gender) %>%
+  tally()
+
+n_women <- n_gender %>% 
+  filter(gender == "Female") %>%
+  pull()
+
+n_men <- n_gender %>% 
+  filter(gender == "Male") %>%
+  pull()
+
 age_range <- range(clinic_lab_data_analytic$age)
 ```
+
+\clearpage
 
 # Introduction
 
@@ -45,34 +69,51 @@ In this study, we collected morning fasting blood samples from `r n_pts` partici
 
 ## Descriptive Statistics
 
-```{r, echo = FALSE}
-kable(clinic_lab_data_summary_table, booktabs = TRUE, col.names = c("", "Female", "Male"), 
-      align = c("l", "c", "c"),
-      caption = "Descriptive Statistics") %>% 
-  kable_styling(latex_options = "hold_position")
+```{r table1, echo = FALSE}
+kable(clinic_lab_data_summary_table,
+      booktabs = TRUE,
+      col.names = c("Physical Activity", "High", "Low", "High", "Low"), 
+      align = c("l", "c", "c", "c", "c"),
+      caption = "Descriptive Statistics, mean (sd)") %>% 
+  kable_styling(latex_options = "hold_position") %>% 
+  add_header_above(c("", "Women (n = 246)" = 2, "Men (n = 204)" = 2)) %>% 
+  add_footnote(c("Tsai 2016", "Smithee 2014"),
+               threeparttable = TRUE)
 ```
 
 ## Exploratory Analyses
 
-```{r, echo = FALSE}
-histograms
+```{r histograms, echo = FALSE}
+histograms_men
+histograms_women
 ```
 
-```{r, echo = FALSE}
-x_age_plot
-```
+\clearpage
 
-```{r, echo = FALSE}
+```{r enz-a-plot, echo = FALSE}
 a_age_plot
 ```
 
-## Statistical Analysis
-modeling  
-regression output
+```{r enz-x-plot, echo = FALSE}
+x_age_plot
+```
 
-```{r, echo=FALSE}
-kable(models_out, booktabs = TRUE) %>% 
+\clearpage
+
+## Statistical Analysis
+We conducted linear regression modeling with our fully adjusted model specified below.
+
+```{r reg-eq, results = "asis", echo = FALSE, fig.cap = "Regression Equation, Fully Adjusted Model"}
+extract_eq(full_adj_lm)
+```
+
+```{r reg-out, echo=FALSE}
+kable(models_out,
+      booktabs = TRUE,
+      digits = 2,
+      caption = "Results of Linear Regression") %>% 
   pack_rows("Unadjusted", 1, 2) %>% 
   pack_rows("Sex Adjusted", 3, 5) %>% 
-  pack_rows("Fully Adjusted", 6, 10)
+  pack_rows("Fully Adjusted", 6, 10) %>% 
+  kable_styling(latex_options = "hold_position")
 ```

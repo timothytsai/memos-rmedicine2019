@@ -4,6 +4,11 @@ library(ggplot2)
 library(truncnorm)
 library(tidyr)
 library(purrr)
+library(broom)
+library(equatiomatic)
+library(here)
+
+set.seed(111314113)
 
 n_rec <- 450
 
@@ -11,7 +16,7 @@ base_data <- data.frame(
   study_id = seq(1, n_rec),
   redcap_event_name = "baseline_arm_1",
   screen_date = sample(seq.Date(Sys.Date() - years(1), Sys.Date() - months(1), by = "day"), n_rec, replace = TRUE),
-  dob = sample(seq.Date(Sys.Date() - years(101), Sys.Date() - years(18), by = "day"), n_rec, replace = TRUE),
+  dob = sample(seq.Date(Sys.Date() - years(91), Sys.Date() - years(19), by = "day"), n_rec, replace = TRUE),
   gender = sample(c("Male", "Female"), n_rec, replace = TRUE, prob = c(45, 55)),
   diabetes = sample(c(1, 0), n_rec, replace = TRUE, prob = c(10, 90))
 )

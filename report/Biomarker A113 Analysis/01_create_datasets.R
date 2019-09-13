@@ -5,8 +5,13 @@ clinic_lab_data_analytic <- clinic_lab_data %>%
     phys_act = case_when(
       gender == "Female" ~ phys_act * 1.03,
       gender == "Male" ~ phys_act * 0.977
-    ))
+    ),
+    phys_act_cat = cut(phys_act,
+                       breaks = quantile(phys_act, 
+                                         probs = c(0, 1, 0.5)), 
+                       labels = c("Low", "High"))
+  )
 
 clinic_lab_data_analytic_long <- clinic_lab_data_analytic %>% 
   select(-screen_date, -dob) %>% 
-  gather(key, value, -study_id, -gender)
+  gather(key, value, -study_id, -gender, -phys_act_cat)

@@ -1,0 +1,18 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+
+body { font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif; }
+h1, h2, h3 {
+  font-family: 'Lato';
+  font-weight: normal;
+}
+.remark-code, .remark-inline-code { font-family: 'Source Code Pro', 'Lucida Console', Monaco, monospace; }
+
+.title-slide {
+  background-image: url('https://pepper.bwh.harvard.edu/wp-content/uploads/2016/09/Picture1-1.png'), url('https://www.marcusinstituteforaging.org/sites/default/files/Marcus_Institute_HMS_horizontal.svg');
+  background-size:  100px 100px, 350px 150px;
+  background-position: bottom 10px right 60px, bottom -20px left 10px;
+}

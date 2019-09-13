@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Analytic Memos with Rmarkdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Timothy Tsai, MPH" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="css/footer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Analytic Memos with Rmarkdown
+## R/Medicine 2019
+### Timothy Tsai, MPH
+### Hinda and Arthur Marcus Institute for Aging Research
+### 2019/09/14
+
+---
+
+
+
+
+
+
+
+
+
+layout: true
+  
+&lt;div class="my-header"&gt;&lt;/div&gt;
+
+&lt;div class="my-footer"&gt;&lt;span&gt;https://1n.pm/rmedmemos     
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+&lt;/span&gt;&lt;/div&gt; 
+
+---
+
+class: left, top
+
+# Disclosures
+
+No disclosures
+
+---
+class: center, middle
+
+# Introduction
+
+---
+
+&lt;img src="./assets/memo_p1.png" width="708" /&gt;
+
+---
+
+&lt;img src="./assets/memo_p2.png" width="779" /&gt;
+
+---
+
+&lt;img src="./assets/RMedicine Project Map enlarged.png" width="879" style="display: block; margin: auto;" /&gt;
+
+---
+
+# About Us
+
+--
+.pull-left[
+**Biostatistics and Data Science**  
+- Statistical analysis
+
+- Software development
+
+- Data management  
+
+- Accidental sysadmin
+]
+--
+.pull-right[
+**Biomedical inquiries into aging**  
+- clinical trials  
+
+- observational studies  
+
+- physical function  
+
+- bone health  
+
+- cognition  
+
+- improving clinical care
+]
+---
+
+# A clinical research ecosystem
+--
+&lt;img src="./assets/research ecosystem.png" width="660" style="display: block; margin: auto;" /&gt;
+
+---
+
+#### A clinical research project
+
+&lt;img src="./assets/RMedicine Project Map enlarged.png" width="762" style="display: block; margin: auto;" /&gt;
+
+---
+
+#### &lt;br&gt;
+
+&lt;img src="./assets/RMedicine Project Map annotated enlarged 1.png" width="762" style="display: block; margin: auto;" /&gt;
+
+---
+
+#### &lt;br&gt;
+
+&lt;img src="./assets/RMedicine Project Map annotated enlarged 2.png" width="763" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="./assets/RMedicine Project Map annotated enlarged zoom.png" width="459" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Markdown
+easy to read, easy to write  
+text to html
+--
+
+# R Markdown
+text and **R code** to html, **pdf, Word and others**  
+
+*knitr* - R Markdown to markdown
+- R code and objects (text, tables, figures) can be referenced and evaluated in-line  
+
+*pandoc* - markdown to a variety of output formats
+---
+
+# Advantages
+error reduction  
+evolving project code base with version control  
+extensibility  
+reusability  
+---
+
+# Creating an analytic memo with Rmarkdown
+structuring a project  
+modular code  
+the ninety-ninety rule 
+
+--
+
+## memor  
+
+--
+
+## kableExtra  
+---
+
+
+```r
+a_age_plot
+```
+
+&lt;img src="Rmedicine_2019_Analytic_Memos_files/figure-html/unnamed-chunk-9-1.png" width="792" /&gt;
+
+---
+
+
+```r
+kable(clinic_lab_data_summary_table, col.names = c("Physical Activity", "High", "Low", "High", "Low"), 
+      align = c("l", "c", "c", "c", "c"),
+      caption = "Descriptive Statistics, mean (sd)") %&gt;% 
+  kable_styling(bootstrap_options = "striped", font_size = 18) %&gt;% 
+  add_header_above(c("", "Women (n = 246)" = 2, "Men (n = 204)" = 2)) %&gt;% 
+  add_footnote(c("Tsai 2016", "Smithee 2014"))
+```
+
+&lt;table class="table table-striped" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption style="font-size: initial !important;"&gt;Descriptive Statistics, mean (sd)&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="border-bottom:hidden" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Women (n = 246)&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Men (n = 204)&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Physical Activity &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; High &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Low &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; High &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Low &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Age, y &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.6 (21.6) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55.8 (21) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 56.1 (19.9) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 55.2 (22.1) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BMI &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 35.6 (14) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.6 (12) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 34.2 (10.9) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32 (11.3) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Height, cm &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 162.3 (13) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 163.8 (13) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 175.2 (14.8) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 175.1 (13.3) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Weight, kg &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 (31.9) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 89.3 (30.3) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 102.8 (28.4) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 96.8 (30.5) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Physical Activity Scale &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 143.3 (36.7) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.5 (26.3) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 130.5 (29.9) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 63.1 (23.7) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Enzyme A133, pg/mL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 419.8 (209.1) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 453.3 (220.3) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 653.4 (209.3) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 632.6 (198.8) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Enzyme X808, ng/dL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1800.9 (254) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1794.7 (227.5) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1434.9 (256) &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1428.6 (256.8) &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;tfoot&gt;
+&lt;tr&gt;
+&lt;td style = 'padding: 0; border:0;' colspan='100%'&gt;&lt;sup&gt;a&lt;/sup&gt; Tsai 2016&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style = 'padding: 0; border:0;' colspan='100%'&gt;&lt;sup&gt;b&lt;/sup&gt; Smithee 2014&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tfoot&gt;
+&lt;/table&gt;
+
+---
+
+## Inline Code
+
+````
+```{r}
+n_pts
+age_range[1]
+age_range[2]
+```
+````
+
+"In this study, we collected morning fasting blood samples from **450** participants aged **19** to **90** y.  We conducted A113 assays by multispectral peripheral absorptiometry using a 12 array micropanel (AssayGen, Salem, MA)."
+
+---
+
+#### Demonstration
+
+.pull-left[
+
+&lt;img src="./assets/RMedicine Project Map annotated enlarged zoom.png" width="459" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+https://1n.pm/rmedmemos  
+https://github.com/timothytsai/memos-rmedicine2019
+]
+---
+
+# Acknowledgments
+Made possible by support from the NIA via a Boston Pepper Center (P30AG031679, S Bhasin) Core Development Project Grant (T Travison).
+
+--
+
+## Co-authors
+Fan Chen, MS, MPH  
+Hao Zhu, MA  
+Thomas G. Travison, PhD  
+Ilean Isaza, PhD
+---
+
+# Thanks!
+curator - **Cu**stomizable **R**eporting, **A**nalysis and **T**emplating for Repr**o**ducible **R**esearch  
+https://hebrewseniorlife.github.io/curator/
+
+find me on Twitter - @seizethedatum
+
+.footnote[
+Slides created using the R package [**xaringan**](https://github.com/yihui/xaringan).
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
